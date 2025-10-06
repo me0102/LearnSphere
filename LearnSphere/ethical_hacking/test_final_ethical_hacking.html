@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Final - Ethical Hacking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f8f9fa;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question p {
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+    .fail {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Test Final - Ethical Hacking</h2>
+  <form id="quizForm">
+    <!-- Les 20 questions -->
+  </form>
+  <button onclick="corriger()">Soumettre</button>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      {
+        q: "Quel est l’objectif principal de l’ethical hacking ?",
+        a: "c",
+        o: ["Espionner les utilisateurs", "Voler des données sensibles", "Identifier et corriger les failles de sécurité", "Installer des virus légalement"]
+      },
+      {
+        q: "Quel outil est utilisé pour scanner des ports et détecter les services actifs ?",
+        a: "b",
+        o: ["Nikto", "Nmap", "John the Ripper", "Hydra"]
+      },
+      {
+        q: "Qu’est-ce que le 'footprinting' ?",
+        a: "c",
+        o: ["Cracker un mot de passe", "Capturer le trafic réseau", "Collecter des informations sur une cible", "Injecter du code malveillant"]
+      },
+      {
+        q: "Quel protocole est couramment attaqué avec une attaque de type 'ARP Spoofing' ?",
+        a: "c",
+        o: ["HTTP", "DNS", "ARP", "TCP"]
+      },
+      {
+        q: "Que permet une attaque XSS ?",
+        a: "c",
+        o: ["Usurper une adresse IP", "Saturer un service", "Exécuter du script dans un navigateur victime", "Lire les fichiers système"]
+      },
+      {
+        q: "Lequel des suivants est un outil d’ingénierie sociale ?",
+        a: "a",
+        o: ["SET (Social Engineer Toolkit)", "Nikto", "Aircrack-ng", "Sqlmap"]
+      },
+      {
+        q: "Quel type d’attaque consiste à envoyer un grand nombre de requêtes pour surcharger un serveur ?",
+        a: "b",
+        o: ["SQL Injection", "DoS/DDoS", "Buffer Overflow", "Sniffing"]
+      },
+      {
+        q: "Quelle est la fonction d’un IDS ?",
+        a: "c",
+        o: ["Réparer les logiciels vulnérables", "Intercepter les communications", "Détecter les intrusions dans un réseau", "Cacher l’adresse IP de l’utilisateur"]
+      },
+      {
+        q: "Quel outil est couramment utilisé pour détecter les failles web ?",
+        a: "b",
+        o: ["Metasploit", "Burp Suite", "John the Ripper", "Cain & Abel"]
+      },
+      {
+        q: "Qu’est-ce que la méthode de 'Defense in Depth' ?",
+        a: "c",
+        o: ["Une attaque multivectorielle", "Une méthode de chiffrement", "Une approche de sécurité multicouche", "Une faille critique"]
+      },
+      {
+        q: "Quel est le rôle de la phase de 'scanning' dans une attaque ?",
+        a: "c",
+        o: ["Attaquer les mots de passe", "Installer un cheval de Troie", "Identifier les ports et services ouverts", "Chiffrer les communications"]
+      },
+      {
+        q: "Que signifie l’acronyme VPN ?",
+        a: "c",
+        o: ["Virtual Port Number", "Verified Private Network", "Virtual Private Network", "Very Protected Network"]
+      },
+      {
+        q: "Quel est le rôle de Metasploit ?",
+        a: "b",
+        o: ["Lire les logs", "Automatiser l’exploitation de failles", "Écouter les connexions Wi-Fi", "Créer des pare-feu"]
+      },
+      {
+        q: "Quelle est la mesure de défense contre les attaques CSRF ?",
+        a: "b",
+        o: ["Captcha", "Jeton d’authenticité (token)", "Chiffrement des mots de passe", "Blocage IP"]
+      },
+      {
+        q: "Une 'escalade de privilège' permet à un attaquant de :",
+        a: "c",
+        o: ["Se faire passer pour un site web", "Lire le trafic Wi-Fi", "Obtenir des droits administrateur", "Exécuter un scan de ports"]
+      },
+      {
+        q: "Quel est le rôle d’un pare-feu ?",
+        a: "b",
+        o: ["Scanner les ports", "Filtrer les paquets réseau", "Lancer des attaques", "Lire les fichiers systèmes"]
+      },
+      {
+        q: "Quelle technique est utilisée pour capturer les paquets sur un réseau local ?",
+        a: "b",
+        o: ["DNS Spoofing", "Sniffing", "Flooding", "Pivoting"]
+      },
+      {
+        q: "Que permet une attaque de type Directory Traversal ?",
+        a: "c",
+        o: ["Télécharger des fichiers", "Exécuter des scripts malveillants", "Accéder à des fichiers hors du répertoire web", "Cracker un mot de passe"]
+      },
+      {
+        q: "Quel outil est utilisé pour le brute force des mots de passe ?",
+        a: "c",
+        o: ["Netcat", "Burp Suite", "Hydra", "Wireshark"]
+      },
+      {
+        q: "Pourquoi appliquer le principe du moindre privilège ?",
+        a: "c",
+        o: ["Pour ralentir le système", "Pour faciliter l’administration", "Pour limiter les dégâts en cas de compromission", "Pour détecter les failles"]
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    questions.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `<p>${i + 1}. ${q.q}</p>` + q.o.map((opt, j) => `
+        <label><input type="radio" name="q${i}" value="${String.fromCharCode(97 + j)}"> ${opt}</label>
+      `).join('');
+      quizForm.appendChild(div);
+    });
+
+    function corriger() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const userAnswer = document.querySelector(`input[name=q${i}]:checked`);
+        if (userAnswer && userAnswer.value === q.a) score++;
+      });
+      const resultDiv = document.getElementById("result");
+      if (score >= 15) {
+        resultDiv.innerHTML = `<p class='success'>Félicitations ! Vous avez obtenu ${score}/20. Vous êtes validé 🎉.</p>
+        <a href='../cours.html'><button>Passer au cours suivant</button></a>`;
+      } else {
+        resultDiv.innerHTML = `<p class='fail'>Vous avez obtenu ${score}/20. Veuillez revoir le cours.</p>
+        <a href='lecon_ethical_hacking.html'><button>Revenir au cours</button></a>`;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS email_config (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    smtp_host VARCHAR(255) NOT NULL,
+    smtp_username VARCHAR(255) NOT NULL,
+    smtp_password VARCHAR(255) NOT NULL,
+    smtp_port INT NOT NULL DEFAULT 587,
+    smtp_secure VARCHAR(10) NOT NULL DEFAULT 'tls',
+    from_email VARCHAR(255) NOT NULL,
+    from_name VARCHAR(255) NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

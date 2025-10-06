@@ -1,0 +1,197 @@
+.chapters {
+    margin-top: 60px;
+    padding: 40px 0;
+    background-color: #f4f5f7;
+  }
+  
+  .chapter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chapter-logo img {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    border-radius: 8px;
+  }
+  
+  .chapter-details {
+    flex-grow: 1;
+  }
+  
+  .chapter-details h4 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .chapter-details a {
+    display: block;
+    margin: 10px 0;
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .chapter-details a:hover {
+    text-decoration: underline;
+  }
+  
+  footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+  }
+  
+  footer p {
+    margin: 0;
+  }
+  /* Header global */
+.header {
+    background-color: #1e1e2f;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Logo LearnSphere */
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo img {
+    height: 40px; /* Taille réduite du logo */
+    width: auto;
+    margin-right: 10px;
+    border-radius: 6px;
+  }
+  
+  .logo h1 {
+    font-size: 22px;
+    margin: 0;
+    color: #ffffff;
+  }
+  
+  /* Menu de navigation */
+  .main-nav {
+    display: flex;
+    gap: 25px;
+  }
+  
+  .main-nav a {
+    text-decoration: none;
+    color: #f0f0f0;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+    background-color: transparent;
+  }
+  
+  .main-nav a:hover {
+    background-color: #00b894;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 184, 148, 0.3);
+    transform: scale(1.05);
+  }
+  .complete-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+  }
+  
+.complete-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+.complete-btn.completed {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    cursor: default;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+  }
+  
+.complete-btn.completed::after {
+    content: " ✔ Terminé";
+    margin-left: 8px;
+  }
+  .course-meta {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .chapter {
+    border-left: 3px solid #4361ee;
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+  }
+/* Styles de la fenêtre modale */
+.modal {
+  display: none; /* Cachée par défaut */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#modal-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+#modal-link:hover {
+  background-color: #45a049;
+}
+
+
+ 
+  
