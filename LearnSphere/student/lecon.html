@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leçon</title>
+  <link rel="stylesheet" href="../css/lecon.css">
+</head>
+
+
+<body>
+  <!-- Header avec logo et menu -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <img src="../images/logo.jpg" alt="LearnSphere Logo">
+        <h1>LearnSphere</h1>
+      </div>
+      <nav class="main-nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../cours.html">Cours</a>
+        <a href="../index.html">Déconnexion</a>
+      </nav>
+    </div>
+  </header>
+  <div class="course-meta">
+    <span class="duration">⏱️ 15 heures</span>
+    <span class="level">🧠 Intermédiaire</span>
+    <span class="rating">⭐ 4.8/5</span>
+  </div>
+
+  <!-- Chapitres avec PDFs et Vidéos -->
+  <section class="chapters">
+    <div class="container">
+      <h3>Nos Chapitres</h3>
+      
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 LearnSphere. Tous droits réservés.</p>
+    </div>
+  </footer>
+  <script>
+    function markCompleted(button, chapterId) {
+      localStorage.setItem(chapterId, 'true');
+      button.textContent = "Terminé";
+      button.style.backgroundColor = "#4caf50";
+      button.style.color = "white";
+      button.disabled = true;
+    }
+
+    window.onload = function () {
+      const buttons = document.querySelectorAll('.complete-btn');
+      buttons.forEach((button) => {
+        const chapterId = button.getAttribute('onclick').match(/'(.*?)'/)[1];
+        if (localStorage.getItem(chapterId) === 'true') {
+          button.textContent = "Terminé";
+          button.style.backgroundColor = "#4caf50";
+          button.style.color = "white";
+          button.disabled = true;
+        }
+      });
+    };
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Get the module ID from the URL query parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const moduleId = urlParams.get('module_id');
+
+      if (!moduleId) {
+        console.error('Module ID is missing in the URL.');
+        return;
+      }
+
+      const chaptersContainer = document.querySelector('.chapters .container');
+
+      fetch(`../admin/get_courses.php?module_id=${moduleId}`)
+        .then(response => response.json())
+        .then(courses => {
+          if (courses.error) {
+            console.error('Error fetching courses:', courses.error);
+            return;
+          }
+
+          courses.forEach((course, index) => {
+            const chapterDiv = document.createElement('div');
+            chapterDiv.classList.add('chapter');
+
+            // Use a default image if course.image_path is missing or invalid
+            const imagePath = course.image_path ? course.image_path : '../images/default_chapter_image.jpg';
+
+            chapterDiv.innerHTML = `
+              <div class="chapter-logo">
+                <img src="${imagePath}" alt="Chapitre ${index + 1}">
+              </div>
+              <div class="chapter-details">
+                <h4>Chapitre ${index + 1} : ${course.title}</h4>
+                <a href="${course.pdf_path}" target="_blank">Voir cours</a>
+                <br />
+                <a href="${course.video_path}" target="_blank">Regarder la vidéo</a>
+                <button class="complete-btn" onclick="markCompleted(this, 'chapter_${course.id}')">Marquer comme terminé</button>
+              </div>
+            `;
+
+            chaptersContainer.appendChild(chapterDiv);
+          });
+        })
+        .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>

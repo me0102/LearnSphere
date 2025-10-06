@@ -1,0 +1,73 @@
+<!-- Fichier : student/profile.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon Profil - LearnSphere</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Mon Profil</h1>
+    <div>
+    <nav class="main-nav">
+              <ul>
+                  <li><a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> <span>Home</span></a></li>
+                  <li><a href="courses.html" ><i class="fas fa-book"></i> <span>Mes Cours</span></a></li>
+                  <li><a href="profile.html" class="active"><span>profil</span></a></li>
+                  <li><a href="contact.html"><i class="fas fa-envelope"></i> <span>Contact us</span></a></li>
+                  <li><a href="faq.html"><span>FAQ</span></a></li>
+                  <li><a href="dashboard.php?logout=1" class="btn-small"><span>Déconnexion</span></a></li>
+              </ul>
+    </nav>
+    </div>
+    <style>
+        .main-nav ul {
+          display: flex;
+          list-style: none; /* pour enlever les puces */
+          padding: 0;
+          margin: 0;
+          gap: 20px; /* espace entre les éléments */
+        }
+        
+        .main-nav li {
+          display: inline-block;
+        }
+        
+    </style>
+  </header>
+
+  <main class="profile-container">
+    <section class="profile-info">
+      <h2>Informations personnelles</h2>
+      <form>
+        <label for="full-name">Nom complet :</label>
+        <input type="text" id="full-name" value="Jean Dupont" disabled />
+        
+        <label for="email">Email :</label>
+        <input type="email" id="email" value="jean.dupont@example.com" disabled />
+        
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" placeholder="********" />
+        
+        <button type="submit">Mettre à jour</button>
+      </form>
+    </section>
+
+    <section class="profile-picture">
+      <h2>Photo de Profil</h2>
+      <div class="profile-img">
+        <img src="../images/profile.jpg" alt="Photo de profil" />
+      </div>
+      <input type="file" id="profile-picture" />
+      <button type="button">Changer la photo</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 LearnSphere. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>

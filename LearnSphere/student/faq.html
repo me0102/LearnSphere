@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ Technique - LearnSphere</title>
+  <link rel="stylesheet" href="../css/faq_style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header class="faq-header">
+    <div class="container">
+      <div class="logo">
+        <img src="../images/logo.jpg" alt="LearnSphere" width="180">
+        <h1>Centre d'Aide</h1>
+      </div>
+    <nav class="main-nav">
+              <ul>
+                  <li><a href="dashboard.php" class="active"><span>Home</span></a></li>
+                  <li><a href="courses.html"><span>Mes Cours</span></a></li>
+                  <li><a href="profile.html"><span>profil</span></a></li>
+                  <li><a href="contact.html"><span>Contact us</span></a></li>
+                  <li><a href="faq.html" class="active"><span>FAQ</span></a></li>
+                  <li><a href="dashboard.php?logout=1" class="btn-small"><span>Déconnexion</span></a></li>
+              </ul>
+    </nav>
+    </div>
+    <style>
+      .main-nav ul {
+        display: flex;
+        list-style: none; /* pour enlever les puces */
+        padding: 0;
+        margin: 0;
+        gap: 20px; /* espace entre les éléments */
+      }
+
+      .main-nav li {
+        display: inline-block;
+      }
+
+      </style>
+    </div>
+  </header>
+
+  <main class="faq-main">
+    <div class="container">
+      <div class="faq-hero">
+        <h2><i class="fas fa-question-circle"></i> Foire Aux Questions</h2>
+        <p>Trouvez des réponses à vos questions techniques et pédagogiques</p>
+        <div class="search-box">
+          <input type="text" placeholder="Rechercher dans la FAQ...">
+          <button><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <div class="faq-grid">
+        <!-- Section Technique -->
+        <section class="faq-section">
+          <h3><i class="fas fa-code"></i> Questions Techniques</h3>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Je n'arrive pas à accéder à une vidéo de cours, que faire ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Vérifie ta connexion Internet et recharge la page. Si le problème persiste, contacte le support technique via le formulaire de contact.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Mon test final ne se soumet pas, comment résoudre cela ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Assure-toi que toutes les questions sont remplies. Essaie également de vider le cache de ton navigateur.</p>
+            </div>
+          </div>
+
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Puis-je suivre les cours sur mobile ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p> Oui, notre plateforme est entièrement responsive et fonctionne sur téléphone, tablette et ordinateur.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Comment changer mon mot de passe ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Va dans l’espace utilisateur > Paramètres > Modifier le mot de passe.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4> Les fichiers PDF ne s’ouvrent pas, que faire ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Vérifie que ton navigateur prend en charge la lecture PDF. Sinon, télécharge-les et ouvre-les localement.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Puis-je télécharger les vidéos ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Non, les vidéos sont accessibles uniquement en streaming pour protéger les droits d’auteur.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Comment enregistrer ma progression ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>La progression est automatiquement sauvegardée via le navigateur (localStorage ou API). Connecte-toi pour synchroniser ton avancement.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Compatibilité mobile</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>85% de nos fonctionnalités sont accessibles sur mobile. Les labs pratiques nécessitent un ordinateur.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Le site ne charge pas correctement, que faire ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Essaie un autre navigateur, vide ton cache ou désactive les extensions qui pourraient interférer.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Résolution des erreurs 404</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Effacez votre cache ou essayez une autre connexion. Si persistant, signalez-le via le formulaire de contact.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section Pédagogique -->
+        <section class="faq-section">
+          <h3><i class="fas fa-graduation-cap"></i> Questions Pédagogiques</h3>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Quelle est la durée moyenne d'un cours ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Les cours varient de 10 à 30 heures selon leur complexité. Chaque leçon indique sa durée estimée.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Combien de temps ai-je pour terminer un cours ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Tu avances à ton rythme. Il n’y a pas de limite de temps, sauf indication contraire.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Prérequis pour le cours d'ethical hacking</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Bases en réseaux et Linux recommandées. Le cours inclut un module d'introduction si nécessaire.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Puis-je revenir en arrière dans une leçon ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p> Oui, tu peux naviguer librement entre les leçons.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Progression non enregistrée</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Vérifiez votre connexion. La progression est sauvegardée automatiquement lorsque vous cliquez sur "Marquer comme terminé".</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Difficulté sur un exercice</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Utilisez les indices disponibles ou posez votre question dans le forum dédié au questions</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Puis-je suivre les modules dans n’importe quel ordre ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Oui, chaque module est indépendant. Tu peux commencer par le sujet de ton choix.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Formation adaptée aux débutants ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Nos parcours "Débutant" partent de zéro. Consultez les prérequis de chaque cours pour choisir.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Est-ce que je peux tester mes compétences sans suivre tout le cours ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Oui, tu peux accéder directement au test final si tu connais déjà le sujet.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h4>Quel est le niveau requis pour commencer ce cours ?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Nos cours sont conçus pour être accessibles à tous, même aux débutants. Aucun prérequis technique n’est nécessaire pour commencer. Chaque module débute par une introduction claire et progressive afin de poser les bases avant d’aborder des notions plus avancées.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="faq-footer">
+    <div class="container">
+      <p>Besoin d'aide supplémentaire ? <a href="contact.html">Contactez notre équipe</a></p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-discord"></i></a>
+      </div>
+      <p class="copyright">&copy; 2023 LearnSphere. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="js/faq.js"></script>
+</body>
+</html>
