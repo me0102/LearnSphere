@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajouter un chapitre</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Ajouter un cours</h1>
+    <nav>
+      <a href="dashboard.php">Tableau de bord</a>
+      <a href="manage-courses.html">Gérer les cours</a>
+      <a href="users.html">Utilisateurs</a>
+      <a href="../login.html">Déconnexion</a>
+    </nav>
+  </header>
+  
+  <main>
+    <section class="add-course-form">
+      <h2>Ajouter un nouveau chapitre</h2>
+      <form id="add-course-form">
+        <div>
+          <label for="module-id">Module :</label>
+          <select id="module-id" name="module-id" required>
+            <option value="">Sélectionnez un module</option>
+            <!-- Options will be populated by JavaScript -->
+          </select>
+        </div>
+        <div>
+          <label for="course-title">Titre du chapitre :</label>
+          <input type="text" id="course-title" name="title" placeholder="Entrez le titre du chapitre" required>
+        </div>
+        <div>
+          <label for="course-video">Vidéo :</label>
+          <input type="file" id="course-video" name="video" accept="video/*" required>
+        </div>
+        <div>
+          <label for="course-pdf">PDF :</label>
+          <input type="file" id="course-pdf" name="pdf" accept="application/pdf" required>
+        </div>
+        <div>
+          <label for="course-image">Image :</label>
+          <input type="file" id="course-image" name="image" accept="image/*" required>
+        </div>
+
+        <button type="submit">Ajouter le chapitre</button>
+      </form>
+    </section>
+
+    <section class="course-list">
+      <h2>Liste des cours par module</h2>
+      <div id="course-list-container">
+        <!-- Les cours seront affichés ici -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 LearnSphere. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const moduleSelect = document.getElementById('module-id');
+
+      // Fetch modules to populate the dropdown
+      fetch('get_modules.php')
+        .then(response => response.json())
+        .then(modules => {
+          if (!modules || modules.length === 0) {
+            moduleSelect.innerHTML = '<option value="">Aucun module trouvé</option>';
+            return;
+          }
+          modules.forEach(module => {
+            const option = document.createElement('option');
+            option.value = module.id;
+            option.textContent = module.title;
+            moduleSelect.appendChild(option);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching modules:', error);
+          moduleSelect.innerHTML = '<option value="">Erreur de chargement</option>';
+        });
+
+      // Handle form submission
+      document.getElementById('add-course-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const moduleId = moduleSelect.value;
+        const title = document.getElementById('course-title').value.trim();
+        const video = document.getElementById('course-video').files[0];
+        const pdf = document.getElementById('course-pdf').files[0];
+        const image = document.getElementById('course-image').files[0];
+
+        if (!moduleId || !title || !video || !pdf || !image) {
+          alert('Veuillez remplir tous les champs et sélectionner les fichiers requis.');
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append('module_id', moduleId);
+        formData.append('title', title);
+        formData.append('video', video);
+        formData.append('pdf', pdf);
+        formData.append('image', image);
+
+        // Send data to the backend
+        fetch('add_course.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json()) // Parse JSON response
+        .then(data => {
+          if (data.error) {
+            alert('Erreur : ' + data.error);
+          } else if (data.success) {
+            alert(data.success);
+            document.getElementById('add-course-form').reset();
+          } else {
+            alert('Réponse inattendue du serveur.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Une erreur est survenue lors de l\'ajout du cours.');
+        });
+      });
+
+      // Fetch and display courses by module
+      const courseListContainer = document.getElementById('course-list-container');
+
+      function fetchAndDisplayCourses() {
+        fetch('get_courses.php')
+          .then(response => response.json())
+          .then(data => {
+            if (!data || data.length === 0) {
+              courseListContainer.innerHTML = '<p>Aucun cours trouvé.</p>';
+              return;
+            }
+
+            const modules = {};
+
+            // Group courses by module
+            data.forEach(course => {
+              if (!modules[course.module_title]) {
+                modules[course.module_title] = [];
+              }
+              modules[course.module_title].push(course);
+            });
+
+            // Clear the container
+            courseListContainer.innerHTML = '';
+
+            // Display courses grouped by module
+            for (const [moduleTitle, courses] of Object.entries(modules)) {
+              const moduleDiv = document.createElement('div');
+              moduleDiv.classList.add('module-section');
+
+              const moduleTitleElement = document.createElement('h3');
+              moduleTitleElement.textContent = moduleTitle;
+              moduleDiv.appendChild(moduleTitleElement);
+
+              const courseList = document.createElement('ul');
+              courses.forEach(course => {
+                const courseItem = document.createElement('li');
+                courseItem.textContent = course.title;
+
+                // Add delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Supprimer';
+                deleteButton.addEventListener('click', () => deleteCourse(course.id));
+                courseItem.appendChild(deleteButton);
+
+                courseList.appendChild(courseItem);
+              });
+
+              moduleDiv.appendChild(courseList);
+              courseListContainer.appendChild(moduleDiv);
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching courses:', error);
+            courseListContainer.innerHTML = '<p>Erreur de chargement des cours.</p>';
+          });
+      }
+
+      function deleteCourse(courseId) {
+        if (!confirm('Êtes-vous sûr de vouloir supprimer ce cours ?')) {
+          return;
+        }
+
+        fetch('delete_course.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id: courseId })
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert('Cours supprimé avec succès.');
+              fetchAndDisplayCourses();
+            } else {
+              alert('Erreur : ' + (data.error || 'Impossible de supprimer le cours.'));
+            }
+          })
+          .catch(error => {
+            console.error('Error deleting course:', error);
+            alert('Une erreur est survenue lors de la suppression du cours.');
+          });
+      }
+
+      // Initial fetch
+      fetchAndDisplayCourses();
+    });
+  </script>
+</body>
+</html>

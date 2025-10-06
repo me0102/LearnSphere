@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajouter un Quiz</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Ajouter un Quiz</h1>
+    <nav>
+      <a href="dashboard.html">Tableau de bord</a>
+      <a href="manage-courses.html">Gérer les cours</a>
+      <a href="users.html">Utilisateurs</a>
+      <a href="../login.html">Déconnexion</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="add-quiz-form">
+      <h2>Ajouter un nouveau Quiz</h2>
+      <form id="add-quiz-form">
+        <div>
+          <label for="module-id">Module :</label>
+          <select id="module-id" name="module-id" required>
+            <option value="">Sélectionnez un module</option>
+            <!-- Options will be populated by JavaScript -->
+          </select>
+        </div>
+
+        <h3>Ajouter une question au quiz</h3>
+        <div>
+          <label for="question">Question :</label>
+          <textarea id="question" name="question" placeholder="Entrez la question" required></textarea>
+        </div>
+
+        <div>
+          <label for="choice1">Choix 1 :</label>
+          <input type="text" id="choice1" name="choice1" placeholder="Entrez le premier choix" required>
+        </div>
+
+        <div>
+          <label for="choice2">Choix 2 :</label>
+          <input type="text" id="choice2" name="choice2" placeholder="Entrez le deuxième choix" required>
+        </div>
+
+        <div>
+          <label for="choice3">Choix 3 :</label>
+          <input type="text" id="choice3" name="choice3" placeholder="Entrez le troisième choix" required>
+        </div>
+
+        <div>
+          <label for="choice4">Choix 4 :</label>
+          <input type="text" id="choice4" name="choice4" placeholder="Entrez le quatrième choix" required>
+        </div>
+
+        <div>
+          <label for="correct-choice">Réponse correcte (Numéro du choix) :</label>
+          <select id="correct-choice" name="correct-choice" required>
+            <option value="1">Choix 1</option>
+            <option value="2">Choix 2</option>
+            <option value="3">Choix 3</option>
+            <option value="4">Choix 4</option>
+          </select>
+        </div>
+
+        <button type="submit">Ajouter le Quiz</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 LearnSphere. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const moduleSelect = document.getElementById('module-id');
+
+      // Fetch modules to populate the dropdown
+      fetch('get_modules.php')
+        .then(response => response.json())
+        .then(modules => {
+          if (!modules || modules.length === 0) {
+            moduleSelect.innerHTML = '<option value="">Aucun module trouvé</option>';
+            return;
+          }
+          modules.forEach(module => {
+            const option = document.createElement('option');
+            option.value = module.id;
+            option.textContent = module.title;
+            moduleSelect.appendChild(option);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching modules:', error);
+          moduleSelect.innerHTML = '<option value="">Erreur de chargement</option>';
+        });
+
+      // Handle form submission
+      document.getElementById('add-quiz-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const moduleId = moduleSelect.value;
+        const questionText = document.getElementById('question').value.trim();
+        const choice1 = document.getElementById('choice1').value.trim();
+        const choice2 = document.getElementById('choice2').value.trim();
+        const choice3 = document.getElementById('choice3').value.trim();
+        const choice4 = document.getElementById('choice4').value.trim();
+        const correctChoiceIndex = parseInt(document.getElementById('correct-choice').value) - 1; // 0-based index
+
+        if (!moduleId || !questionText || !choice1 || !choice2 || !choice3 || !choice4) {
+          alert('Veuillez remplir tous les champs.');
+          return;
+        }
+
+        // Structure the question data as expected by the backend (JSON)
+        const questionsData = [
+          {
+            question: questionText,
+            choices: [choice1, choice2, choice3, choice4],
+            correctAnswer: correctChoiceIndex // Store the 0-based index
+          }
+          // Add more questions here if the form is extended
+        ];
+
+        const formData = new FormData();
+        formData.append('module_id', moduleId);
+        formData.append('questions', JSON.stringify(questionsData)); // Send questions as JSON string
+
+        // Send data to the backend
+        fetch('add_quiz.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+          alert(data); // Display the response from add_quiz.php
+          if (data.includes("succès")) {
+            document.getElementById('add-quiz-form').reset();
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Une erreur est survenue lors de l\'ajout du quiz.');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
