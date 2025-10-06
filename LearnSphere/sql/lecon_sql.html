@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leçon – SQL</title>
+  <link rel="stylesheet" href="../css/lecon.css">
+</head>
+
+
+<body>
+  <!-- Header avec logo et menu -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <img src="../images/logo.jpg" alt="LearnSphere Logo">
+        <h1>LearnSphere</h1>
+      </div>
+      <nav class="main-nav">
+        <a href="../student/dashboard.html">Accueil</a>
+        <a href="../student/courses.html">Cours</a>
+        <a href="../index.php" class="btn-small"><span>Déconnexion</span></a>
+  </nav>
+    </div>
+  </header>
+  <div class="course-meta">
+    <span class="duration">⏱️ 15 heures</span>
+    <span class="level">🧠 Intermédiaire</span>
+    <span class="rating">⭐ 4.8/5</span>
+  </div>
+
+  <!-- Section d'introduction -->
+  <section class="introduction">
+    <div class="container">
+      <h2>Leçon : SQL</h2>
+      <p>Apprenez à maîtriser le langage SQL pour interroger, manipuler et sécuriser vos bases de données. Explorez des concepts essentiels à la gestion des données et à la performance des systèmes à travers des chapitres interactifs et enrichissants. </div>
+  </section>
+
+  <!-- Chapitres avec PDFs et Vidéos -->
+  <section class="chapters">
+    <div class="container">
+      <h3>Nos Chapitres</h3>
+      
+      <!-- Chapitre 1 -->
+      <div class="chapter">
+        <div class="chapter-logo">
+          <img src="../images/chapter1_logo.jpg" alt="Chapitre 1">
+        </div>
+        <div class="chapter-details">
+          <h4>Chapitre 1 : Introduction aux bases de données relationnelles et SQL</h4>
+          <a href="../pdfs/sql_chap1.pdf" target="_blank">Voir cours</a>
+          <br />
+          <a href="../videos/sql_vid1.mp4" target="_blank">Regarder la vidéo</a>
+          <button class="complete-btn" onclick="markCompleted(this, 'sql_chap1')">Marquer comme terminé</button>
+        </div>
+      </div>
+
+      <!-- Chapitre 2 -->
+      <div class="chapter">
+        <div class="chapter-logo">
+          <img src="../images/chapter2_logo.jpg" alt="Chapitre 2">
+        </div>
+        <div class="chapter-details">
+          <h4>Chapitre 2 : Les requêtes SQL : Sélection, insertion et mise à jour des données</h4>
+          <a href="../pdfs/sql_chap2.pdf" target="_blank">Voir cours</a>
+          <br />
+          <a href="../videos/sql_vid2.mp4" target="_blank">Regarder la vidéo</a>
+          <button class="complete-btn" onclick="markCompleted(this, 'sql_chap2')">Marquer comme terminé</button>
+        </div>
+      </div>
+
+      <!-- Chapitre 3 -->
+      <div class="chapter">
+        <div class="chapter-logo">
+          <img src="../images/chapter3_logo.jpg" alt="Chapitre 3">
+        </div>
+        <div class="chapter-details">
+          <h4>Chapitre 3 : Gestion des jointures et sous-requêtes en SQL</h4>
+          <a href="../pdfs/sql_chap3.pdf" target="_blank">Voir cours</a>
+          <br />
+          <a href="../videos/sql_vid3.mp4" target="_blank">Regarder la vidéo</a>
+          <button class="complete-btn" onclick="markCompleted(this, 'sql_chap3')">Marquer comme terminé</button>
+        </div>
+      </div>
+
+      <!-- Chapitre 4 -->
+      <div class="chapter">
+        <div class="chapter-logo">
+          <img src="../images/chapter4_logo.jpg" alt="Chapitre 4">
+        </div>
+        <div class="chapter-details">
+          <h4>Chapitre 4 : Optimisation des requêtes SQL et gestion des index</h4>
+          <a href="../pdfs/sql_chap4.pdf" target="_blank">Voir cours</a>
+          <br />
+          <a href="../videos/sql_vid4.mp4" target="_blank">Regarder la vidéo</a>
+          <button class="complete-btn" onclick="markCompleted(this, 'sql_chap4')">Marquer comme terminé</button>
+        </div>
+      </div>
+
+      <!-- Chapitre 5 -->
+      <div class="chapter">
+        <div class="chapter-logo">
+          <img src="../images/chapter5_logo.jpg" alt="Chapitre 5">
+        </div>
+        <div class="chapter-details">
+          <h4>Chapitre 5 : Sécurisation des bases de données SQL et bonnes pratiques</h4>
+          <a href="../pdfs/sql_chap5.pdf" target="_blank">Voir cours</a>
+          <br />
+          <a href="../videos/sql_vid5.mp4" target="_blank">Regarder la vidéo</a>
+          <button class="complete-btn" onclick="markCompleted(this, 'sql_chap5')">Marquer comme terminé</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 LearnSphere. Tous droits réservés.</p>
+    </div>
+  </footer>
+  <script>
+    function markCompleted(button, chapterId) {
+      localStorage.setItem(chapterId, 'true');
+      button.textContent = "Terminé";
+      button.style.backgroundColor = "#4caf50";
+      button.style.color = "white";
+      button.disabled = true;
+    }
+
+    window.onload = function () {
+      const buttons = document.querySelectorAll('.complete-btn');
+      buttons.forEach((button) => {
+        const chapterId = button.getAttribute('onclick').match(/'(.*?)'/)[1];
+        if (localStorage.getItem(chapterId) === 'true') {
+          button.textContent = "Terminé";
+          button.style.backgroundColor = "#4caf50";
+          button.style.color = "white";
+          button.disabled = true;
+        }
+      });
+    };
+  </script>
+</body>
+</html>
+

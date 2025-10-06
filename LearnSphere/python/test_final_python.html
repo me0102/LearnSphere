@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Final - Python</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f8f9fa;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question p {
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+    .fail {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Test Final - Python</h2>
+  <form id="quizForm">
+    <!-- Les 20 questions -->
+  </form>
+  <button onclick="corriger()">Soumettre</button>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      {
+        q: "Quelle est la bonne syntaxe pour afficher du texte en Python ?",
+        a: "b",
+        o: ["echo(\"Bonjour\")", "print(\"Bonjour\")", "console.log(\"Bonjour\")", "afficher(\"Bonjour\")"]
+      },
+      {
+        q: "Quel est le bon type de variable pour stocker une liste d’éléments ?",
+        a: "c",
+        o: ["int", "tuple", "list", "str"]
+      },
+      {
+        q: "En Python, que retourne l’opérateur == ?",
+        a: "c",
+        o: ["L'affectation", "La concaténation", "Une comparaison", "Une exception"]
+      },
+      {
+        q: "Une classe est définie avec quel mot-clé ?",
+        a: "d",
+        o: ["function", "object", "new", "class"]
+      },
+      {
+        q: "Quel est le nom de la méthode spéciale utilisée pour initialiser un objet ?",
+        a: "b",
+        o: ["__create__", "__init__", "constructor()", "initialize()"]
+      },
+      {
+        q: "Que signifie \"héritage\" en POO ?",
+        a: "c",
+        o: ["Supprimer une classe", "Copier une fonction", "Créer une classe à partir d'une autre", "Partager des variables globales"]
+      },
+      {
+        q: "Quelle fonction permet d’ouvrir un fichier en lecture ?",
+        a: "c",
+        o: ["open(file, \"w\")", "open(file, \"a\")", "open(file, \"r\")", "read(file)"]
+      },
+      {
+        q: "Quelle méthode permet de lire toutes les lignes d’un fichier ?",
+        a: "a",
+        o: ["readlines()", "readall()", "lines()", "readfile()"]
+      },
+      {
+        q: "Que fait la structure try...except ?",
+        a: "c",
+        o: ["Elle exécute du code plus rapidement", "Elle empêche l’accès aux fichiers", "Elle permet d’éviter des erreurs lors de l’exécution", "Elle modifie les permissions des fichiers"]
+      },
+      {
+        q: "Quelle erreur est générée quand un fichier n’existe pas ?",
+        a: "d",
+        o: ["FileFoundError", "FileExistError", "NameError", "FileNotFoundError"]
+      },
+      {
+        q: "Quel module permet d’automatiser les tâches système comme copier des fichiers ?",
+        a: "b",
+        o: ["sys", "os", "math", "json"]
+      },
+      {
+        q: "À quoi sert le module shutil ?",
+        a: "c",
+        o: ["À effectuer des calculs", "À manipuler les dates", "À copier et déplacer des fichiers", "À créer des interfaces graphiques"]
+      },
+      {
+        q: "Quelle bibliothèque est couramment utilisée pour planifier des tâches automatisées ?",
+        a: "b",
+        o: ["calendar", "sched", "threading", "tkinter"]
+      },
+      {
+        q: "Quelle commande Pandas charge un fichier CSV ?",
+        a: "b",
+        o: ["pandas.load_csv()", "pd.read_csv()", "pandas.open_csv()", "pd.loadfile()"]
+      },
+      {
+        q: "Que fait df.head() ?",
+        a: "c",
+        o: ["Supprime la première ligne", "Retourne la dernière ligne", "Affiche les 5 premières lignes", "Renomme une colonne"]
+      },
+      {
+        q: "Que fait df.dropna() dans Pandas ?",
+        a: "b",
+        o: ["Crée des valeurs nulles", "Supprime les lignes vides", "Affiche les lignes vides", "Sauvegarde un fichier"]
+      },
+      {
+        q: "Quelle commande retourne la moyenne d’une colonne dans Pandas ?",
+        a: "b",
+        o: ["df.moyenne()", "df.mean()", "df.avg()", "df.stat()"]
+      },
+      {
+        q: "Quelle bibliothèque est utilisée pour créer des graphiques ?",
+        a: "b",
+        o: ["random", "matplotlib", "seaborn", "os"]
+      },
+      {
+        q: "Que permet plt.plot() dans Matplotlib ?",
+        a: "c",
+        o: ["De créer une table", "D’afficher un texte", "De dessiner une courbe", "De filtrer des données"]
+      },
+      {
+        q: "Quelle commande Pandas permet de grouper les données ?",
+        a: "c",
+        o: ["df.group()", "df.join()", "df.groupby()", "df.select()"]
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    questions.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `<p>${i + 1}. ${q.q}</p>` + q.o.map((opt, j) => `
+        <label><input type="radio" name="q${i}" value="${String.fromCharCode(97 + j)}"> ${opt}</label>
+      `).join('');
+      quizForm.appendChild(div);
+    });
+
+    function corriger() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const userAnswer = document.querySelector(`input[name=q${i}]:checked`);
+        if (userAnswer && userAnswer.value === q.a) score++;
+      });
+      const resultDiv = document.getElementById("result");
+      if (score >= 15) {
+        resultDiv.innerHTML = `<p class='success'>Félicitations ! Vous avez obtenu ${score}/20. Vous êtes validé 🎉.</p>
+        <a href='../cours.html'><button>Passer au cours suivant</button></a>`;
+      } else {
+        resultDiv.innerHTML = `<p class='fail'>Vous avez obtenu ${score}/20. Veuillez revoir le cours.</p>
+        <a href='lecon_python.html'><button>Revenir au cours</button></a>`;
+      }
+    }
+  </script>
+</body>
+</html>

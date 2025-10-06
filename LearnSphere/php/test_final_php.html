@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Final - PHP</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f8f9fa;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question p {
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+    .fail {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Test Final - PHP</h2>
+  <form id="quizForm"></form>
+  <button onclick="corriger()">Soumettre</button>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      { q: "Que signifie PHP ?", a: "a", o: ["Personal Home Page", "Programming Hyper Page", "Pre Hypertext Processor", "Professional Hosting Page"] },
+      { q: "Quelle balise PHP est correcte pour commencer un script ?", a: "b", o: ["script", "?php ?", "!-- php --", "php/php"] },
+      { q: "Quelle fonction est utilisée pour afficher un texte ?", a: "c", o: ["display()", "write()", "echo()", "printline()"] },
+      { q: "Quelle extension de fichier est utilisée pour un script PHP ?", a: "c", o: [".html", ".ph", ".php", ".js"] },
+      { q: "Que produit ce code : echo 2 + 3 * 4; ?", a: "b", o: ["20", "14", "24", "10"] },
+      { q: "Quelle est la syntaxe correcte pour déclarer une variable en PHP ?", a: "b", o: ["var x = 5;", "$x = 5;", "x := 5;", "int x = 5;"] },
+      { q: "Que retourne la fonction suivante : strlen('hello');", a: "b", o: ["4", "5", "6", "'hello'"] },
+      { q: "Quelle structure est utilisée pour exécuter une instruction plusieurs fois ?", a: "b", o: ["if", "for", "echo", "return"] },
+      { q: "Comment définir une fonction en PHP ?", a: "a", o: ["function nom() {}", "def nom() {}", "nom() => {}", "fn nom() {}"] },
+      { q: "Que fait la fonction isset() ?", a: "c", o: ["Affiche une variable", "Déclare une variable", "Vérifie si une variable existe", "Supprime une variable"] },
+      { q: "Quelle méthode est la plus sûre pour envoyer des données d’un formulaire ?", a: "b", o: ["GET", "POST", "FETCH", "PUSH"] },
+      { q: "Quelle variable superglobale permet de récupérer les données d’un formulaire ?", a: "c", o: ["$_DATA", "$_INPUT", "$_POST", "$_FORM"] },
+      { q: "Que permet la fonction htmlspecialchars() ?", a: "a", o: ["Convertir les caractères spéciaux en HTML", "Créer un formulaire", "Échapper les erreurs PHP", "Détecter une faille"] },
+      { q: "Quelle balise HTML est utilisée pour créer un formulaire ?", a: "b", o: ["input", "form", "fieldset", "textarea"] },
+      { q: "Quelle est l’utilité de l’attribut action dans un formulaire ?", a: "b", o: ["Indique le type d’entrée", "Définit l’URL de traitement", "Stocke les données", "Cache les données"] },
+      { q: "Quelle fonction est utilisée pour se connecter à une base MySQL ?", a: "a", o: ["mysqli_connect()", "db_connect()", "connect_sql()", "pdo_connect()"] },
+      { q: "Quel paramètre n’est pas requis pour mysqli_connect() ?", a: "c", o: ["Nom d’utilisateur", "Mot de passe", "Nom de la table", "Nom de la base"] },
+      { q: "Que fait mysqli_query() ?", a: "b", o: ["Connecte à la base", "Exécute une requête SQL", "Ferme la connexion", "Formate les résultats"] },
+      { q: "Quelle commande SQL insère une ligne ?", a: "b", o: ["SELECT INTO", "INSERT INTO", "UPDATE SET", "INCLUDE INTO"] },
+      { q: "Quelle méthode protège efficacement contre les injections SQL ?", a: "c", o: ["htmlspecialchars()", "password_hash()", "Requêtes préparées", "Filtres JavaScript"] }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    questions.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `<p>${i + 1}. ${q.q}</p>` + q.o.map((opt, j) => ` 
+        <label><input type="radio" name="q${i}" value="${String.fromCharCode(97 + j)}"> ${opt}</label>
+      `).join('');
+      quizForm.appendChild(div);
+    });
+
+    function corriger() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const userAnswer = document.querySelector(`input[name=q${i}]:checked`);
+        if (userAnswer && userAnswer.value === q.a) score++;
+      });
+      const resultDiv = document.getElementById("result");
+      if (score >= 15) {
+        resultDiv.innerHTML = `<p class='success'>Félicitations ! Vous avez obtenu ${score}/20. Vous êtes validé 🎉.</p>
+          <a href='../cours.html'><button>Passer au cours suivant</button></a>`;
+      } else {
+        resultDiv.innerHTML = `<p class='fail'>Vous avez obtenu ${score}/20. Veuillez revoir le cours.</p>
+          <a href='lecon_php.html'><button>Revenir au cours</button></a>`;
+      }
+    }
+  </script>
+</body>
+</html>

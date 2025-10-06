@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Final - SQL</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f8f9fa;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question p {
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+    .fail {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Test Final - Sécurité des Bases de Données</h2>
+  <form id="quizForm">
+    <!-- Les 20 questions seront générées par JavaScript -->
+  </form>
+  <button onclick="corriger()">Soumettre</button>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      {
+        q: "Quel principe fondamental de la sécurité des bases de données vise à garantir que seules les personnes autorisées peuvent accéder aux données sensibles ?",
+        a: "a",
+        o: ["Confidentialité", "Intégrité", "Disponibilité", "Réplication"]
+      },
+      {
+        q: "Quelle est la meilleure pratique pour limiter les privilèges d'accès aux utilisateurs dans une base de données ?",
+        a: "b",
+        o: [
+          "Accorder tous les privilèges à l'utilisateur root",
+          "Créer des utilisateurs avec des droits minimaux nécessaires pour leurs tâches",
+          "Utiliser un mot de passe facile à retenir",
+          "Accorder les mêmes privilèges à tous les utilisateurs"
+        ]
+      },
+      {
+        q: "Quelle fonction SQL permet de protéger une entrée utilisateur contre les injections SQL en l'échappant correctement ?",
+        a: "a",
+        o: [
+          "mysqli_real_escape_string()",
+          "password_hash()",
+          "SELECT",
+          "INJECT()"
+        ]
+      },
+      {
+        q: "Quelle méthode d'authentification est recommandée pour sécuriser l'accès à une base de données ?",
+        a: "b",
+        o: [
+          "Utiliser uniquement des mots de passe simples",
+          "Utiliser une authentification à deux facteurs (2FA)",
+          "Laisser les utilisateurs se connecter sans mot de passe",
+          "Limiter les connexions à partir de n'importe quel appareil"
+        ]
+      },
+      {
+        q: "Quelle est la méthode recommandée pour se protéger contre les attaques par injection SQL ?",
+        a: "a",
+        o: [
+          "Utiliser des requêtes préparées et des paramètres liés",
+          "Utiliser des requêtes dynamiques",
+          "Ne pas valider les entrées utilisateurs",
+          "Utiliser des mots de passe faibles pour les utilisateurs"
+        ]
+      },
+      {
+        q: "Quel algorithme est recommandé pour le hachage des mots de passe dans une application PHP ?",
+        a: "b",
+        o: ["MD5", "bcrypt", "SHA-1", "DES"]
+      },
+      {
+        q: "Quel est l'avantage d'utiliser des requêtes préparées avec des paramètres liés ?",
+        a: "b",
+        o: [
+          "Elles améliorent les performances du serveur",
+          "Elles empêchent les injections SQL",
+          "Elles permettent d'ignorer les permissions utilisateur",
+          "Elles suppriment les tables inutiles"
+        ]
+      },
+      {
+        q: "Que permet le chiffrement des données sensibles dans une base de données ?",
+        a: "c",
+        o: [
+          "D’accélérer les requêtes SQL",
+          "De rendre les données accessibles à tous",
+          "De protéger les données même si un attaquant accède à la base",
+          "D’empêcher les sauvegardes de données"
+        ]
+      },
+      {
+        q: "Quelle est la meilleure pratique pour protéger les données sensibles dans la base de données ?",
+        a: "a",
+        o: [
+          "Chiffrer les données au repos et en transit",
+          "Ne pas stocker de données sensibles",
+          "Accorder des privilèges d’accès administratifs à tous les utilisateurs",
+          "Utiliser un mot de passe simple pour les connexions"
+        ]
+      },
+      {
+        q: "Quelle est la principale fonctionnalité du SSL/TLS dans la sécurité des bases de données ?",
+        a: "b",
+        o: [
+          "Chiffrer les données stockées",
+          "Protéger les données en transit entre le client et le serveur",
+          "Protéger contre les attaques par injection SQL",
+          "Limiter l'accès aux utilisateurs internes seulement"
+        ]
+      },
+      {
+        q: "Qu'est-ce que l'injection SQL ?",
+        a: "b",
+        o: [
+          "Une méthode de stockage des données",
+          "Une attaque où un attaquant insère des instructions SQL malveillantes dans une requête",
+          "Un processus d'optimisation des requêtes SQL",
+          "Une technique pour améliorer la performance des bases de données"
+        ]
+      },
+      {
+        q: "Quelle pratique est recommandée pour empêcher les injections SQL ?",
+        a: "a",
+        o: [
+          "Valider et nettoyer toutes les entrées utilisateur",
+          "Accepter les entrées sans vérification",
+          "Utiliser des mots de passe courts et simples",
+          "Réduire le chiffrement des données"
+        ]
+      },
+      {
+        q: "Quel rôle joue un mot de passe haché dans la sécurisation des données ?",
+        a: "c",
+        o: [
+          "Il est utilisé pour récupérer les données sensibles",
+          "Il est directement stocké en clair dans la base de données",
+          "Il protège les mots de passe en les rendant illisibles même si la base est compromise",
+          "Il permet de partager les mots de passe entre utilisateurs"
+        ]
+      },
+      {
+        q: "Quel est le principal avantage d'utiliser une sauvegarde chiffrée de la base de données ?",
+        a: "c",
+        o: [
+          "Améliorer la vitesse des requêtes",
+          "Assurer que les données sont lisibles même si la sauvegarde est volée",
+          "Protéger les données en cas de vol de la sauvegarde",
+          "Optimiser les performances de la base de données"
+        ]
+      },
+      {
+        q: "Pourquoi est-il important de tester régulièrement la récupération des données à partir des sauvegardes ?",
+        a: "a",
+        o: [
+          "Pour s'assurer que les sauvegardes sont bien exécutées",
+          "Pour éviter les erreurs dans le code",
+          "Pour assurer la conformité avec les réglementations fiscales",
+          "Pour tester les performances du serveur"
+        ]
+      },
+      {
+        q: "Quel est l'objectif principal des audits de sécurité dans la gestion des bases de données ?",
+        a: "a",
+        o: [
+          "Identifier et corriger les vulnérabilités de sécurité",
+          "Ajouter de nouveaux utilisateurs à la base de données",
+          "Améliorer la vitesse des requêtes SQL",
+          "Ajouter des données inutiles pour tester les performances"
+        ]
+      },
+      {
+        q: "Quel type de données sensibles doit être chiffré dans une base de données ?",
+        a: "b",
+        o: [
+          "Les dates et heures des requêtes",
+          "Les informations financières et personnelles, comme les numéros de carte de crédit",
+          "Les index de base de données",
+          "Les chemins de fichiers dans la base"
+        ]
+      },
+      {
+        q: "Que signifie la règle du principe du moindre privilège ?",
+        a: "b",
+        o: [
+          "Donner des privilèges élevés à tous les utilisateurs",
+          "Limiter l'accès aux ressources uniquement aux utilisateurs qui en ont besoin",
+          "Augmenter les privilèges d'accès des utilisateurs",
+          "Permettre à tout utilisateur d'accéder à toutes les bases de données"
+        ]
+      },
+      {
+        q: "Pourquoi est-il important d'utiliser des sauvegardes régulières des bases de données ?",
+        a: "a",
+        o: [
+          "Pour éviter la perte de données en cas de panne du système",
+          "Pour augmenter les performances du serveur",
+          "Pour éviter de gérer des utilisateurs de manière optimale",
+          "Pour réduire la taille de la base de données"
+        ]
+      },
+      {
+        q: "Quelle méthode est utilisée pour vérifier les accès à la base de données dans un environnement sécurisé ?",
+        a: "a",
+        o: [
+          "Créer un journal d'audit pour enregistrer toutes les actions des utilisateurs",
+          "Laisser tous les accès sans enregistrement",
+          "Utiliser un mot de passe simple pour tous les utilisateurs",
+          "Supprimer les journaux de sécurité"
+        ]
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    questions.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `<p>${i + 1}. ${q.q}</p>` + q.o.map((opt, j) => `
+        <label><input type="radio" name="q${i}" value="${String.fromCharCode(97 + j)}"> ${opt}</label>
+      `).join('');
+      quizForm.appendChild(div);
+    });
+
+    function corriger() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const userAnswer = document.querySelector(`input[name=q${i}]:checked`);
+        if (userAnswer && userAnswer.value === q.a) score++;
+      });
+      const resultDiv = document.getElementById("result");
+      if (score >= 15) {
+        resultDiv.innerHTML = `<p class='success'>Félicitations ! Vous avez obtenu ${score}/20. Vous êtes validé 🎉.</p>
+        <a href='../cours.html'><button>Passer au cours suivant</button></a>`;
+      } else {
+        resultDiv.innerHTML = `<p class='fail'>Vous avez obtenu ${score}/20. Veuillez revoir le cours.</p>
+        <a href='lecon_sql.html'><button>Revenir au cours</button></a>`;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Progression – PHP</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f9fc;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    /* Barre de navigation */
+    .navbar {
+      display: flex;
+      justify-content: center;
+      background-color: #343a40;
+      padding: 15px;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: white;
+      padding: 12px 20px;
+      margin: 0 15px;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar a:hover {
+      background-color: #007bff;
+    }
+
+    /* Barre de progression */
+    .progress-container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 60%;
+      margin: 150px auto 0;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .progress-bar {
+      width: 100%;
+      background-color: #ddd;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .progress-fill {
+      height: 30px;
+      width: 0%;
+      background-color: #4caf50;
+      text-align: center;
+      line-height: 30px;
+      color: white;
+      transition: width 0.5s ease-in-out;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    /* Style pour la popup Assistant AI */
+    .popup {
+      position: fixed;
+      top: 60%;
+      right: -300px;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.2);
+      display: none;
+      z-index: 500;
+      max-width: 400px;
+      transform: translateY(-50%);
+      animation: slideIn 1s ease forwards;
+    }
+
+    /* Animation de la popup glissant de la droite */
+    @keyframes slideIn {
+      0% {
+        right: -300px;
+      }
+      100% {
+        right: 5%;
+      }
+    }
+
+    .popup.active {
+      display: block;
+    }
+
+    .popup h3 {
+      font-size: 1.6em;
+      color: #3f4b57;
+      margin-bottom: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .popup .emoji {
+      font-size: 40px;
+      margin-right: 10px;
+    }
+
+    .popup p {
+      font-size: 1.1em;
+      color: #666;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .popup button {
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #007bff, #00d2ff);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease;
+      display: block;
+      margin: 20px auto 0;
+    }
+
+    .popup button:hover {
+      background: linear-gradient(135deg, #005bb5, #009bcd);
+    }
+
+    .chapters-links a {
+      display: block;
+      margin: 15px 0;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    .chapters-links a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <!-- Barre de navigation -->
+  <div class="navbar">
+    <a href="../index.html">Accueil</a>
+    <a href="../cours.html">Cours</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../index.html">Déconnexion</a>
+  </div>
+
+  <!-- Barre de progression -->
+  <div class="progress-container">
+    <h2>Votre progression en PHP</h2>
+    <div class="progress-bar">
+      <div id="progress-fill" class="progress-fill">0%</div>
+    </div>
+  </div>
+
+  <!-- Popup Assistant AI -->
+  <div id="popupAI" class="popup">
+    <h3><span class="emoji">🤖</span> Assistant </h3>
+    <p id="popupMessage"></p>
+    <div id="chapters-links" class="chapters-links"></div>
+    <button onclick="closePopup()">Fermer</button>
+  </div>
+
+  <script>
+    const chapters = ['php_chap1', 'php_chap2', 'php_chap3', 'php_chap4', 'php_chap5'];
+    let completed = 0;
+
+    chapters.forEach((id) => {
+      if (localStorage.getItem(id) === 'true') {
+        completed++;
+      }
+    });
+
+    const percent = Math.round((completed / chapters.length) * 100);
+    const progressFill = document.getElementById('progress-fill');
+    progressFill.style.width = percent + '%';
+    progressFill.textContent = percent + '%';
+
+    // Fonction pour afficher la popup
+    function showPopup(message, links = '') {
+      const popup = document.getElementById('popupAI');
+      const popupMessage = document.getElementById('popupMessage');
+      const chaptersLinks = document.getElementById('chapters-links');
+      
+      popupMessage.textContent = message;
+      chaptersLinks.innerHTML = links;
+      
+      popup.classList.add('active');
+    }
+
+    // Fonction pour fermer la popup
+    function closePopup() {
+      const popup = document.getElementById('popupAI');
+      popup.classList.remove('active');
+    }
+
+    // Logique de la popup basée sur la progression
+    if (percent === 20) {
+      setTimeout(function() {
+        showPopup('📚 Vous avez complété 20% du cours ! Il vous reste les chapitres suivants à terminer :', 
+          `<a href="../pdfs/php_chap2.pdf">Compléter le chapitre 2</a>
+           <a href="../pdfs/php_chap3.pdf">Compléter le chapitre 3</a>
+           <a href="../pdfs/php_chap4.pdf">Compléter le chapitre 4</a>
+           <a href="../pdfs/php_chap5.pdf">Compléter le chapitre 5</a>`);
+      }, 3000); // Popup apparaîtra après 3 secondes
+    } else if (percent === 40) {
+      setTimeout(function() {
+        showPopup('📚 Vous avez complété 40% du cours ! Il vous reste les chapitres suivants à terminer :', 
+          `<a href="../pdfs/php_chap3.pdf">Compléter le chapitre 3</a>
+           <a href="../pdfs/php_chap4.pdf">Compléter le chapitre 4</a>
+           <a href="../pdfs/php_chap5.pdf">Compléter le chapitre 5</a>`);
+      }, 3000);
+    } else if (percent === 60) {
+      setTimeout(function() {
+        showPopup('📚 Vous avez complété 60% du cours ! Il vous reste les chapitres suivants à terminer :', 
+          `<a href="../pdfs/php_chap4.pdf">Compléter le chapitre 4</a>
+           <a href="../pdfs/php_chap5.pdf">Compléter le chapitre 5</a>`);
+      }, 3000);
+    } else if (percent === 80) {
+      setTimeout(function() {
+        showPopup('📚 Vous avez complété 80% du cours ! Il vous reste juste le dernier chapitre à terminer.', 
+          `<a href="../pdfs/php_chap5.pdf">Compléter le chapitre 5</a>`);
+      }, 3000);
+    } else if (percent === 100) {
+      setTimeout(function() {
+        showPopup('🎉 Félicitations ! Vous avez terminé tous les chapitres. Passons au test final !', 
+          `<a href="test_final_php.html">Passer au Test Final</a>`);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
