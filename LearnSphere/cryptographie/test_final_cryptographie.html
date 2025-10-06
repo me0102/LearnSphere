@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Final - Cryptographie</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background-color: #f8f9fa; }
+    h2 { color: #333; }
+    .question { background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .question p { font-weight: bold; margin: 0 0 10px; }
+    label { display: block; margin: 6px 0; }
+    button { padding: 12px 24px; background-color: #007bff; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; }
+    button:hover { background-color: #0056b3; }
+    #result { margin-top: 20px; font-size: 18px; font-weight: bold; }
+    .success { color: green; }
+    .fail { color: red; }
+  </style>
+</head>
+<body>
+  <h2>Test Final - Cryptographie</h2>
+  <form id="quizForm">
+    <!-- Questions générées par JavaScript -->
+  </form>
+  <button onclick="corriger()">Soumettre</button>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      { q: "1. La cryptographie permet principalement de :", a: "c", o: ["Développer des applications","Créer des réseaux sans fil","Sécuriser les données et communications","Augmenter la vitesse d’un ordinateur"] },
+      { q: "2. Dans le chiffrement symétrique, la clé :", a: "c", o: ["Est différente pour chiffrer et déchiffrer","Est publique","Est la même pour chiffrer et déchiffrer","N’est pas utilisée"] },
+      { q: "3. RSA repose sur la difficulté de :", a: "b", o: ["Résoudre une équation linéaire","Factoriser de grands nombres premiers","Diviser des matrices","Compresser des fichiers"] },
+      { q: "4. Une fonction de hachage produit :", a: "c", o: ["Un message déchiffré","Une clé publique","Une empreinte de taille fixe","Un certificat numérique"] },
+      { q: "5. Un certificat numérique est :", a: "c", o: ["Une clé secrète","Une signature biométrique","Une preuve d’identité cryptographiquement signée","Un fichier de données compressées"] },
+      { q: "6. Le principal défaut du DES est :", a: "b", o: ["Sa lenteur","Sa taille de clé trop courte","Son absence de clé publique","Qu’il est trop complexe à implémenter"] },
+      { q: "7. L’ECC est avantageuse car :", a: "b", o: ["Elle ne nécessite aucune clé","Elle est plus rapide que RSA pour un niveau de sécurité équivalent","Elle utilise la biométrie","Elle fonctionne sans serveur"] },
+      { q: "8. Quelle propriété est essentielle à une fonction de hachage ?", a: "b", o: ["Réversibilité","Résistance aux collisions","Compression","Chiffrement AES"] },
+      { q: "9. Le protocole HTTPS repose sur :", a: "c", o: ["DES","Les fonctions de hachage uniquement","Les certificats numériques et TLS","L’adresse IP du serveur"] },
+      { q: "10. AES utilise des longueurs de clé de :", a: "b", o: ["56 bits","128, 192, ou 256 bits","512 bits uniquement","64 bits"] },
+      { q: "11. Le chiffrement en bloc signifie :", a: "b", o: ["Un seul bit est chiffré à la fois","Le message est divisé en blocs de taille fixe","La clé est coupée en blocs","Le chiffrement est réservé aux fichiers PDF"] },
+      { q: "12. MD5 est aujourd’hui :", a: "c", o: ["Le plus sûr","Toujours recommandé","Obsolète à cause des collisions","Utilisé pour générer des clés"] },
+      { q: "13. Le hachage est principalement utilisé pour :", a: "c", o: ["Chiffrer des messages","Créer des virus","Vérifier l’intégrité des données","Générer des clés privées"] },
+      { q: "14. Dans le chiffrement asymétrique, il y a :", a: "c", o: ["Une seule clé privée","Une seule clé partagée","Une clé publique et une clé privée","Deux clés privées"] },
+      { q: "15. Une CRL (Certificate Revocation List) est :", a: "c", o: ["Une liste de mots de passe","Une clé de chiffrement","Une liste de certificats révoqués","Une base de données d’empreintes digitales"] },
+      { q: "16. Un certificat auto-signé est :", a: "c", o: ["Délivré par un organisme de confiance","Toujours invalide","Signé par sa propre clé privée","Inutilisable en ligne"] },
+      { q: "17. Quelle application utilise couramment le chiffrement asymétrique ?", a: "b", o: ["Zip de fichiers","Signature numérique","Streaming vidéo","Compression audio"] },
+      { q: "18. Le rôle d'une Autorité de Certification (AC) est de :", a: "c", o: ["Chiffrer tous les messages","Gérer les pare-feux","Délivrer et signer des certificats","Générer des clés privées"] },
+      { q: "19. Que signifie 'chaîne de confiance' dans la PKI ?", a: "c", o: ["Plusieurs mots de passe liés","Une série d’algorithmes à tester","Une suite de certificats validant le précédent jusqu’à une AC racine","Une connexion entre deux bases de données"] },
+      { q: "20. Le chiffrement transforme :", a: "c", o: ["Une clé privée en clé publique","Un fichier en exécutable","Des données lisibles en données illisibles","Un algorithme en protocole"] }
+    ];
+
+    const form = document.getElementById('quizForm');
+    questions.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `<p>${q.q}</p>` + q.o.map((opt, j) => `
+        <label><input type=\"radio\" name=\"q${i}\" value=\"${String.fromCharCode(97+j)}\"> ${opt}</label>
+      `).join('');
+      form.appendChild(div);
+    });
+
+    function corriger() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const answer = document.querySelector(`input[name=q${i}]:checked`);
+        if (answer && answer.value === q.a) score++;
+      });
+      const result = document.getElementById('result');
+      if (score >= 15) {
+        result.innerHTML = `<p class='success'>Bravo ! Vous avez obtenu ${score}/20. Vous êtes validé 🎉.</p><a href='../cours.html'><button>Passer au cours suivant</button></a>`;
+      } else {
+        result.innerHTML = `<p class='fail'>Vous avez obtenu ${score}/20. Veuillez revoir le cours.</p><a href='lecon_cryptographie.html'><button>Revenir au cours</button></a>`;
+      }
+    }
+  </script>
+</body>
+</html>
