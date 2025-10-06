@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Final - Linux</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f8f9fa;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question p {
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+    .fail {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Test Final - Linux</h2>
+  <form id="quizForm"></form>
+  <button onclick="corriger()">Soumettre</button>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      { q: "Quelle est la commande pour afficher le répertoire courant ?", a: "b", o: ["ls", "pwd", "cd", "dir"] },
+      { q: "Quelle commande permet de changer de répertoire ?", a: "c", o: ["ls", "mv", "cd", "pwd"] },
+      { q: "Le répertoire /home contient généralement :", a: "c", o: ["Les logs système", "Les fichiers système", "Les fichiers utilisateurs", "Les exécutables système"] },
+      { q: "Que fait la commande ls -l ?", a: "b", o: ["Lance un programme", "Liste les fichiers en détails", "Change les permissions", "Supprime un fichier"] },
+      { q: "Que fait chmod +x script.sh ?", a: "c", o: ["Supprime le fichier", "Change le propriétaire", "Donne les droits d'exécution", "Installe un programme"] },
+      { q: "Quelle commande supprime un fichier ?", a: "a", o: ["rm", "mv", "rmdir", "cut"] },
+      { q: "Quelle commande permet de créer un dossier ?", a: "b", o: ["rmdir", "mkdir", "newdir", "touch"] },
+      { q: "La commande touch sert à :", a: "b", o: ["Modifier les permissions", "Créer un fichier vide", "Installer un paquet", "Voir les processus"] },
+      { q: "Le fichier /etc/passwd contient :", a: "b", o: ["Les mots de passe en clair", "Les utilisateurs du système", "Les fichiers de configuration", "Les logs des utilisateurs"] },
+      { q: "Le bit de permission 'x' signifie :", a: "c", o: ["Lecture", "Écriture", "Exécution", "Suppression"] },
+      { q: "La commande pour ajouter un utilisateur est :", a: "c", o: ["addgroup", "adduser", "useradd", "chmod"] },
+      { q: "Quelle commande permet de changer le groupe d’un fichier ?", a: "c", o: ["chmod", "chown", "chgrp", "groupmod"] },
+      { q: "Quelle commande installe un paquet sous Debian ?", a: "b", o: ["yum install", "apt install", "rpm -i", "dnf install"] },
+      { q: "Que fait sudo apt update ?", a: "d", o: ["Installe un logiciel", "Supprime un paquet", "Met à jour les paquets installés", "Met à jour la liste des paquets"] },
+      { q: "Pour démarrer un service avec systemd :", a: "c", o: ["service start", "init.d start", "systemctl start", "launchctl start"] },
+      { q: "Quelle commande liste tous les services actifs ?", a: "b", o: ["ps -aux", "systemctl list-units --type=service", "top", "cron list"] },
+      { q: "Le shebang #!/bin/bash sert à :", a: "c", o: ["Créer un utilisateur", "Lancer le script automatiquement", "Définir l’interpréteur du script", "Ajouter un commentaire"] },
+      { q: "Quelle commande rend un script exécutable ?", a: "a", o: ["chmod +x fichier.sh", "bash fichier.sh", "exec fichier.sh", "compile fichier.sh"] },
+      { q: "Que fait la commande cron ?", a: "b", o: ["Affiche la mémoire", "Planifie des tâches", "Lance un shell", "Crée une boucle"] },
+      { q: "Que signifie $1 dans un script Bash ?", a: "b", o: ["Le nom du script", "Le premier argument passé", "Une variable système", "Une commande intégrée"] }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    questions.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `<p>${i+1}. ${q.q}</p>` + q.o.map((opt,j) => `
+        <label><input type="radio" name="q${i}" value="${String.fromCharCode(97+j)}"> ${opt}</label>
+      `).join('');
+      quizForm.appendChild(div);
+    });
+
+    function corriger() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const user = document.querySelector(`input[name=q${i}]:checked`);
+        if (user && user.value === q.a) score++;
+      });
+      const resultDiv = document.getElementById('result');
+      if (score >= 15) {
+        resultDiv.innerHTML = `<p class='success'>Félicitations ! Vous avez obtenu ${score}/20. Vous êtes validé 🎉.</p>
+          <a href='../cours.html'><button>Passer au cours suivant</button></a>`;
+      } else {
+        resultDiv.innerHTML = `<p class='fail'>Vous avez obtenu ${score}/20. Veuillez revoir le cours.</p>
+          <a href='lecon_linux.html'><button>Revenir au cours</button></a>`;
+      }
+    }
+  </script>
+</body>
+</html>
