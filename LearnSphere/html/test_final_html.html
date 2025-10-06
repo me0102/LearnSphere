@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Final - HTML</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f8f9fa;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question p {
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+    .fail {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Test Final - HTML</h2>
+  <form id="quizForm"></form>
+  <button onclick="corriger()">Soumettre</button>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      { q: "Quelle balise HTML5 est utilisée pour représenter l'en-tête d'une page ou d'une section ?", a: "c", o: ["footer", "nav", "header", "section"] },
+      { q: "Quelle balise est utilisée pour représenter un contenu autonome, comme un article ou un billet de blog ?", a: "b", o: ["header", "article", "section", "footer"] },
+      { q: "Quelle balise HTML5 est utilisée pour inclure des vidéos sur une page web ?", a: "b", o: ["media", "video", "audio", "iframe"] },
+      { q: "Quelle balise HTML5 est utilisée pour intégrer du contenu audio dans une page web ?", a: "a", o: ["audio", "video", "sound", "track"] },
+      { q: "Comment inclure plusieurs sources audio dans la balise <audio> ?", a: "a", o: ["En utilisant plusieurs balises <source>", "En utilisant une balise <track>", "En spécifiant une source différente pour chaque balise <audio>", "En utilisant des balises <audiotrack>"] },
+      { q: "Quelles sont les deux options de stockage local offertes par HTML5 ?", a: "c", o: ["Local Storage et File Storage", "Session Storage et Cache Storage", "Local Storage et Session Storage", "File Storage et Data Storage"] },
+      { q: "Quelle balise HTML5 permet de dessiner des graphiques ou des animations ?", a: "a", o: ["canvas", "svg", "graphics", "chart"] },
+      { q: "Quelle propriété de l'objet navigator permet d'accéder à la position géographique de l'utilisateur ?", a: "b", o: ["navigator.getPosition()", "navigator.geolocation.getCurrentPosition()", "navigator.location", "navigator.geoPosition()"] },
+      { q: "Quel est le rôle principal de la balise <footer> en HTML5 ?", a: "c", o: ["Contenir l'en-tête du site", "Représenter la section principale du contenu", "Contenir les informations de copyright ou les liens de bas de page", "Contenir les balises de navigation principales"] },
+      { q: "Qu'est-ce que l'API de géolocalisation permet de faire en HTML5 ?", a: "b", o: ["Récupérer l'adresse IP de l'utilisateur", "Accéder à la position géographique de l'utilisateur", "Accéder à l'historique de navigation de l'utilisateur", "Sauvegarder les préférences utilisateur dans le cloud"] },
+      { q: "Quelle méthode de l'API Notification permet d'afficher des notifications sur l'écran ?", a: "c", o: ["Notification.show()", "Notification.create()", "new Notification()", "Notification.display()"] },
+      { q: "Quel est le principal avantage de l'utilisation des balises sémantiques en HTML5 ?", a: "b", o: ["Elles améliorent la performance des pages web", "Elles rendent le contenu plus compréhensible pour les moteurs de recherche et les technologies d'assistance", "Elles permettent d'intégrer du contenu multimédia plus facilement", "Elles permettent de mieux organiser le code CSS"] },
+      { q: "Comment intégrer un fichier audio en utilisant plusieurs formats dans HTML5 ?", a: "a", o: ["Utiliser la balise source pour chaque format dans la balise <audio>", "Spécifier les formats dans la balise audio", "Ajouter une balise audio pour chaque format", "Utiliser un attribut type dans la balise audio"] },
+      { q: "Dans quel cas utiliseriez-vous la balise <section> en HTML5 ?", a: "b", o: ["Pour définir l'entête d'une page", "Pour séparer des sections thématiques dans un document", "Pour insérer une vidéo", "Pour ajouter des commentaires dans le code HTML"] },
+      { q: "Que fait la méthode sessionStorage.setItem() en JavaScript ?", a: "c", o: ["Elle ajoute un élément au cache du navigateur", "Elle stocke des données dans le stockage local", "Elle stocke des données pour la durée de la session dans le navigateur", "Elle permet de récupérer les données du stockage local"] },
+      { q: "Quelle est la principale différence entre Local Storage et Session Storage ?", a: "c", o: ["Le Local Storage est plus rapide que le Session Storage", "Le Session Storage persiste même après la fermeture du navigateur, contrairement au Local Storage", "Le Local Storage persiste après la fermeture du navigateur, contrairement au Session Storage", "Il n'y a aucune différence entre les deux"] },
+      { q: "Quelle est l'extension recommandée pour un fichier audio en HTML5 ?", a: "b", o: [".mp4", ".ogg", ".html", ".zip"] },
+      { q: "Quelle méthode permet de tester si l'utilisateur a accepté de recevoir des notifications dans l'API Notification ?", a: "c", o: ["Notification.isGranted()", "Notification.requestPermission()", "Notification.permission", "Notification.status()"] },
+      { q: "Que permet l'API Canvas en HTML5 ?", a: "a", o: ["Dessiner des formes et des images", "Créer des formulaires interactifs", "Manipuler des fichiers audio", "Gérer les animations CSS"] },
+      { q: "Quelle est la principale fonction de l'élément <track> dans un élément <video> ?", a: "b", o: ["Contrôler la lecture du fichier vidéo", "Ajouter des sous-titres ou des descriptions audio à la vidéo", "Indiquer le format de la vidéo", "Permettre d'ajouter des annotations à la vidéo"] }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    questions.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `<p>${i + 1}. ${q.q}</p>` + q.o.map((opt, j) => `
+        <label><input type="radio" name="q${i}" value="${String.fromCharCode(97 + j)}"> ${opt}</label>
+      `).join('');
+      quizForm.appendChild(div);
+    });
+
+    function corriger() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const userAnswer = document.querySelector(`input[name=q${i}]:checked`);
+        if (userAnswer && userAnswer.value === q.a) score++;
+      });
+      const resultDiv = document.getElementById("result");
+      if (score >= 15) {
+        resultDiv.innerHTML = `<p class='success'>Félicitations ! Vous avez obtenu ${score}/20. Vous êtes validé 🎉.</p>
+          <a href='../cours.html'><button>Passer au cours suivant</button></a>`;
+      } else {
+        resultDiv.innerHTML = `<p class='fail'>Vous avez obtenu ${score}/20. Veuillez revoir le cours.</p>
+          <a href='lecon_html.html'><button>Revenir au cours</button></a>`;
+      }
+    }
+  </script>
+</body>
+</html>

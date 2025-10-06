@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Final - JavaScript</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f8f9fa;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question p {
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+    .fail {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Test Final - JavaScript</h2>
+  <form id="quizForm"></form>
+  <button onclick="corriger()">Soumettre</button>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      {
+        q: "Quel est l'objectif principal de la programmation orientée objet (POO) en JavaScript ?",
+        a: "b",
+        o: [
+          "Faciliter la manipulation des chaînes de caractères",
+          "Organiser le code en objets ayant des propriétés et des méthodes",
+          "Optimiser la gestion de la mémoire",
+          "Créer des applications mobiles"
+        ]
+      },
+      {
+        q: "En JavaScript, que fait la méthode super() dans une classe enfant ?",
+        a: "b",
+        o: [
+          "Elle supprime les méthodes de la classe parent.",
+          "Elle appelle le constructeur de la classe parent.",
+          "Elle initialise une nouvelle instance de la classe enfant.",
+          "Elle déclare une propriété privée dans la classe parent."
+        ]
+      },
+      {
+        q: "Quelle est la principale différence entre les classes en JavaScript et les fonctions constructrices ?",
+        a: "c",
+        o: [
+          "Les classes ne peuvent pas avoir de méthodes.",
+          "Les fonctions constructrices sont utilisées uniquement pour créer des objets.",
+          "Les classes offrent une syntaxe plus simple et plus claire pour la création d'objets.",
+          "Les classes ne peuvent pas hériter d'autres classes."
+        ]
+      },
+      {
+        q: "Qu'est-ce que l'encapsulation en POO ?",
+        a: "a",
+        o: [
+          "Cacher les détails d'implémentation d'une classe et exposer uniquement une interface.",
+          "Accéder aux propriétés d'un objet depuis l'extérieur de la classe.",
+          "Créer des objets à partir de classes.",
+          "Réutiliser le code d'une classe dans d'autres classes."
+        ]
+      },
+      {
+        q: "Quel mot-clé est utilisé en JavaScript pour déclarer une propriété privée dans une classe ?",
+        a: "c",
+        o: [
+          "private",
+          "protected",
+          "#",
+          "privateProperty"
+        ]
+      },
+      {
+        q: "Que fait le pattern Singleton en JavaScript ?",
+        a: "b",
+        o: [
+          "Il crée plusieurs instances de la même classe.",
+          "Il garantit qu'une seule instance d'une classe existe dans toute l'application.",
+          "Il permet d'hériter d'une classe sans modifier sa structure.",
+          "Il crée une instance à chaque fois qu'il est appelé."
+        ]
+      },
+      {
+        q: "Quel design pattern est utilisé pour créer des objets sans spécifier directement la classe à instancier ?",
+        a: "b",
+        o: [
+          "Observer",
+          "Factory",
+          "Singleton",
+          "Strategy"
+        ]
+      },
+      {
+        q: "Qu'est-ce que le polymorphisme en POO ?",
+        a: "a",
+        o: [
+          "La possibilité de définir une même méthode dans plusieurs classes avec des implémentations différentes.",
+          "L'héritage d'une méthode d'une classe parent.",
+          "La possibilité d'appeler une méthode sur n'importe quel type de donnée.",
+          "La création de nouvelles méthodes dans une classe."
+        ]
+      },
+      {
+        q: "Dans le pattern Factory, quelle méthode est généralement utilisée pour créer des objets ?",
+        a: "b",
+        o: [
+          "createObject()",
+          "create()",
+          "generate()",
+          "creer()"
+        ]
+      },
+      {
+        q: "Comment une méthode de la classe enfant peut-elle redéfinir une méthode de la classe parent ?",
+        a: "c",
+        o: [
+          "En utilisant le mot-clé override.",
+          "En utilisant le mot-clé extends.",
+          "En utilisant le mot-clé super().",
+          "En redéclarant la méthode avec un nouveau nom dans la classe enfant."
+        ]
+      },
+      {
+        q: "Quelle est la méthode correcte pour créer un objet à partir d'une classe en JavaScript ?",
+        a: "a",
+        o: [
+          "let monObjet = new Class();",
+          "let monObjet = Class();",
+          "let monObjet = new Object();",
+          "let monObjet = create(Class);"
+        ]
+      },
+      {
+        q: "Quel est l'objectif du pattern Observer en JavaScript ?",
+        a: "b",
+        o: [
+          "Créer des objets sans spécifier leur type exact.",
+          "Permettre à plusieurs objets d'être notifiés lorsqu'un autre objet change d'état.",
+          "Assurer qu'une seule instance d'une classe existe dans toute l'application.",
+          "Gérer les dépendances d'une application."
+        ]
+      },
+      {
+        q: "Qu'est-ce que le DOM (Document Object Model) en JavaScript ?",
+        a: "a",
+        o: [
+          "Une représentation en mémoire d'une page HTML, permettant de manipuler la structure de la page.",
+          "Un mécanisme de gestion des événements.",
+          "Un type de base de données utilisé en JavaScript.",
+          "Un processus de compilation des fichiers HTML."
+        ]
+      },
+      {
+        q: "Comment accéder à un élément HTML par son ID avec JavaScript ?",
+        a: "c",
+        o: [
+          "document.querySelector('#elementId');",
+          "document.getElementById('#elementId');",
+          "document.getElementById('elementId');",
+          "document.querySelector('elementId');"
+        ]
+      },
+      {
+        q: "Que permet de faire la méthode addEventListener() en JavaScript ?",
+        a: "b",
+        o: [
+          "Ajouter un nouvel élément à la page HTML.",
+          "Ajouter un écouteur d'événements à un élément HTML.",
+          "Modifier le contenu d'un élément HTML.",
+          "Exécuter une fonction automatiquement après un délai."
+        ]
+      },
+      {
+        q: "Quel est le but des promesses en JavaScript ?",
+        a: "a",
+        o: [
+          "Effectuer des opérations asynchrones en permettant de traiter les résultats plus tard.",
+          "Organiser le code en modules réutilisables.",
+          "Gérer les erreurs d'exécution dans le code synchrone.",
+          "Exécuter du code simultanément sur plusieurs threads."
+        ]
+      },
+      {
+        q: "Quelle est la différence entre setTimeout() et setInterval() en JavaScript ?",
+        a: "b",
+        o: [
+          "setTimeout() répète une fonction tandis que setInterval() exécute une fonction une seule fois.",
+          "setTimeout() exécute une fonction une seule fois tandis que setInterval() répète une fonction.",
+          "setTimeout() fonctionne uniquement avec des événements, tandis que setInterval() est utilisé pour manipuler les éléments DOM.",
+          "setTimeout() et setInterval() sont des synonymes."
+        ]
+      },
+      {
+        q: "Quelle méthode permet de transformer une promesse en une valeur dès que la promesse est résolue ?",
+        a: "a",
+        o: [
+          "then()",
+          "catch()",
+          "finally()",
+          "await()"
+        ]
+      },
+      {
+        q: "En JavaScript, que fait le mot-clé async devant une fonction ?",
+        a: "c",
+        o: [
+          "Il déclare la fonction comme étant synchrone.",
+          "Il empêche la fonction de se bloquer pendant l'exécution.",
+          "Il transforme la fonction en une promesse, permettant l'utilisation de await.",
+          "Il fait en sorte que la fonction renvoie immédiatement une valeur."
+        ]
+      },
+      {
+        q: "Quel design pattern est utilisé pour gérer des processus d'exécution de manière différée en JavaScript ?",
+        a: "c",
+        o: [
+          "Observer",
+          "Singleton",
+          "Command",
+          "Strategy"
+        ]
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    questions.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `<p>${i + 1}. ${q.q}</p>` + q.o.map((opt, j) => `
+        <label><input type="radio" name="q${i}" value="${String.fromCharCode(97 + j)}"> ${opt}</label>
+      `).join('');
+      quizForm.appendChild(div);
+    });
+
+    function corriger() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const userAnswer = document.querySelector(`input[name=q${i}]:checked`);
+        if (userAnswer && userAnswer.value === q.a) score++;
+      });
+      const resultDiv = document.getElementById("result");
+      if (score >= 15) {
+        resultDiv.innerHTML = `<p class='success'>Félicitations ! Vous avez obtenu ${score}/20. Vous êtes validé 🎉.</p>
+        <a href='../cours.html'><button>Passer au cours suivant</button></a>`;
+      } else {
+        resultDiv.innerHTML = `<p class='fail'>Vous avez obtenu ${score}/20. Veuillez revoir le cours.</p>
+        <a href='lecon_javascript.html'><button>Revenir au cours</button></a>`;
+      }
+    }
+  </script>
+</body>
+</html>
