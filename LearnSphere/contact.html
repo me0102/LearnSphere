@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - LearnSphere</title>
+  <link rel="stylesheet" href="css/contact_style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header Élégant -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <img src="images/logo.jpg" alt="LearnSphere Logo">
+        <h1>LearnSphere</h1>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
+        <a href="cours.html"><i class="fas fa-book"></i> Cours</a>
+        <a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact us</a>
+        <a href="faq.html">FAQ</a>
+        <a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="contact-hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Contactez Notre Équipe</h1>
+        <p>Nous sommes là pour répondre à toutes vos questions sur notre plateforme d'apprentissage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Grid -->
+  <section class="contact-main">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Formulaire de Contact -->
+        <div class="contact-form">
+          <h2><i class="fas fa-paper-plane"></i> Envoyez-nous un message</h2>
+          
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Votre nom</label>
+              <input type="text" id="name" placeholder="Jean Dupont" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Votre email</label>
+              <input type="email" id="email" placeholder="jean@exemple.com" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="subject">Sujet</label>
+              <select id="subject" required>
+                <option value="" disabled selected>Choisissez un sujet</option>
+                <option value="support">Support technique</option>
+                <option value="courses">Questions sur les cours</option>
+                <option value="account">Problème de compte</option>
+                <option value="other">Autre demande</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Votre message</label>
+              <textarea id="message" rows="5" placeholder="Décrivez votre demande en détail..." required></textarea>
+            </div>
+            
+            <button type="submit" class="btn-submit">
+              <i class="fas fa-paper-plane"></i> Envoyer le message
+            </button>
+          </form>
+          
+        </div>
+        
+        <!-- Informations de Contact -->
+        <div class="contact-info">
+          <h2><i class="fas fa-info-circle"></i> Nos coordonnées</h2>
+          
+          <div class="info-card">
+            <i class="fas fa-envelope"></i>
+            <h3>Email</h3>
+            <p>contact@learnsphere.com</p>
+            <p>Réponse sous 24 heures</p>
+          </div>
+          
+          <div class="info-card">
+            <i class="fas fa-phone-alt"></i>
+            <h3>Téléphone</h3>
+            <p>+212 000000005</p>
+            <p>Lundi au Vendredi, 9h-18h</p>
+          </div>
+          
+          <div class="info-card">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Adresse</h3>
+            <p>Avenue Abdelkrim Elkhatabi</p>
+            <p>40000 Marrakech, Maroc</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="contact-cta">
+    <div class="container">
+      <h2>Vous préférez les réponses instantanées ?</h2>
+      <p>Consultez notre centre d'aide pour trouver des réponses à vos questions.</p>
+      <a href="faq.html" class="btn-cta">Visiter la FAQ</a>
+    </div>
+  </section>
+
+  <!-- Footer Élégant -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <img src="images/logo.jpg" alt="LearnSphere" class="footer-logo">
+          <p>La plateforme d'apprentissage en ligne pour les passionnés de technologie.</p>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Liens utiles</h3>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="cours.html">Tous les cours</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-social">
+          <h3>Nous suivre</h3>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 LearnSphere. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+ 
+  
+  <script src="js/contact.js"></script>
+  <!-- À placer avant </body> -->
+<div id="notification" style="display: none;">
+    <div class="notification-box">
+      <i class="fas fa-check-circle"></i>
+      <h3>Message envoyé !</h3>
+      <p>Nous avons bien reçu votre demande.</p>
+      <button id="close-notification" class="btn-ok">OK</button>
+    </div>
+  </div>
+</body>
+</html>
